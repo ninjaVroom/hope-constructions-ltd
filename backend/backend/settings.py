@@ -203,11 +203,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    PROJECT_DIR / "site/public/static",
+    PROJECT_DIR / "website/public/static",
 ]
 
 # python manage.py collectstatic
-STATIC_ROOT = PROJECT_DIR / "site/public/static-files-cdn"
+STATIC_ROOT = PROJECT_DIR / "website/public/static-files-cdn"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
