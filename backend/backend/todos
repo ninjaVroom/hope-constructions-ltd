@@ -1,0 +1,10 @@
+--------- python manage.py makemigrations --merge
+--------- python manage.py inspectdb pd_notifications_type --database=plus_database_2 > db_models_plus_database_2/models/duties/notifications_type.py
+
+run -> python manage.py crontab add
+run -> python manage.py crontab show
+python manage.py migrate --database=hope_construction_ltd jet
+run -> python manage.py makemigrations hope_construction
+run -> python manage.py migrate --database=default hope_construction
+run -> python manage.py makemigrations app_token_auth
+run -> python manage.py migrate --database=default app_token_auth
