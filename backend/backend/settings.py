@@ -29,6 +29,7 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+PRODUCTION = True
 
 ALLOWED_HOSTS = [
     "localhost",
@@ -203,7 +204,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+
+if PRODUCTION is True:
+    STATIC_URL = 'https://cms-files.hopeconstructiongh.com/public/static/'
+else:
+    STATIC_URL = '/public/static/'
+    
 STATICFILES_DIRS = [
     PROJECT_DIR / "website/public/static",
 ]
