@@ -33,7 +33,9 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
-    "api.hopeconstructiongh.com",
+    "5.182.18.202",
+    "api.hopeconstructiongh.com/",
+    "cms.hopeconstructiongh.com/",
 ]
 
 
