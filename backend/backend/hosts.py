@@ -5,7 +5,7 @@ host_patterns = patterns('',
     host(r'www', settings.ROOT_URLCONF, name='www'),
     # host(r'(\w+)', 'path.to.custom_urls', name='wildcard'),
     host(r'api', 'api.urls', name='api'),
-    host(r'cms', 'django.contrib.admin.site.urls', name='ADMIN'),
+    host(r'cms', 'backend.admin_url', name='ADMIN'),
 )
 # akwaaba
 # akwaabaapi
