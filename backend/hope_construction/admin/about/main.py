@@ -6,7 +6,7 @@ from hope_construction.models.about.main import AboutHCModel
 class AboutHCAdmin(admin.ModelAdmin):
     list_display = AboutHCModel.MetaDb.fields
     list_display_links = list_display
-    list_filter = list_display
+    list_filter = ("creationDate", "updateDate")
     search_fields = ("text",)
     # readonly_fields = ('date',)
     list_per_page = 25

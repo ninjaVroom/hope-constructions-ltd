@@ -11,6 +11,7 @@ from api.views.hope_construction.testimonials.views.main import TestimonialHCVie
 from api.views.hope_construction.contact_info.views.main import ContactInfoHCViewSet
 from api.views.hope_construction.banner.views.main import BannerHCViewSet
 from api.views.hope_construction.logo.views.main import LogoHCViewSet
+from api.views.hope_construction.center_image.views.main import CenterImageHCViewSet
 
 
 __all__ = [
@@ -18,6 +19,6 @@ __all__ = [
     "FilesHCViewSet", "GalleryHCViewSet", "MessageHCViewSet",
     "ServiceHCViewSet", "SliderHCViewSet", "SubscriberHCViewSet",
     "TestimonialHCViewSet", "BundledHCViewSet", "BannerHCViewSet",
-    "LogoHCViewSet",
+    "LogoHCViewSet", "CenterImageHCViewSet",
 ]
 

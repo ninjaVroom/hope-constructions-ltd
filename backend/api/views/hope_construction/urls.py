@@ -36,6 +36,9 @@ router.register(r'testimonials', apiViews.TestimonialHCViewSet,
 router.register(r'banner', apiViews.BannerHCViewSet,
     basename='banner'
 )
+router.register(r'center-image', apiViews.CenterImageHCViewSet,
+    basename='center-image'
+)
 router.register(r'bundled-data', apiViews.BundledHCViewSet,
     basename='bundled-data'
 )

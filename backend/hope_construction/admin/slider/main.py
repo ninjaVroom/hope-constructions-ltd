@@ -6,7 +6,7 @@ from hope_construction.models.slider.main import SliderHCModel
 class SliderHCAdmin(admin.ModelAdmin):
     list_display = SliderHCModel.MetaDb.fields
     list_display_links = list_display
-    list_filter = list_display
+    list_filter = ("creationDate", "updateDate")
     search_fields = ("title", "subTitle", "description", "link")
     # readonly_fields = ('date',)
     list_per_page = 25

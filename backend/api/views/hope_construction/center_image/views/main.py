@@ -6,39 +6,20 @@ from rest_framework.request import Request
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
 from Libraries.classes.api.mixins.datatables.datatable import DatatableMixin
 from Libraries.functions.serializer.response.success import success_response
-from api.views.hope_construction.bundle.serializers.main import (
-    BundledHCSerializer, BundledSerializerDataclass, AboutHCModel, 
-    SliderHCModel, GalleryHCModel, ServiceHCModel, ContactInfoHCModel,
-    TestimonialHCModel, BannerHCModel, LogoHCModel, CenterImageHCModel
-)
+from api.views.hope_construction.center_image.serializers.main import CenterImageHCSerializer
+from hope_construction.models.center_image.main import CenterImageHCModel
 
-class BundledHCViewSet(DatatableMixin, ModelViewSet):
+
+class CenterImageHCViewSet(DatatableMixin, ModelViewSet):
     # permission_classes = [permissions.IsAuthenticated, ]
     permission_classes = [permissions.AllowAny, ]
-    logoModel = LogoHCModel
-    logoQueryset = logoModel.objects.all().select_related('createdBy', 'updatedBy')
-    aboutModel = AboutHCModel
-    aboutQueryset = aboutModel.objects.all().select_related('createdBy', 'updatedBy')
-    bannerModel = BannerHCModel
-    bannerQueryset = bannerModel.objects.all().select_related('createdBy', 'updatedBy')
-    sliderModel = SliderHCModel
-    sliderQueryset = sliderModel.objects.all().select_related('createdBy', 'updatedBy')
-    galleryModel = GalleryHCModel
-    galleryQueryset = galleryModel.objects.all().select_related('createdBy', 'updatedBy')
-    serviceModel = ServiceHCModel
-    serviceQueryset = serviceModel.objects.all().select_related('createdBy', 'updatedBy')
-    centerImageHCModel = CenterImageHCModel
-    centerImageQueryset = centerImageHCModel.objects.all().select_related('createdBy', 'updatedBy')
-    contactInfoModel = ContactInfoHCModel
-    contactInfoQueryset = contactInfoModel.objects.all().select_related('createdBy', 'updatedBy')
-    testimonialModel = TestimonialHCModel
-    testimonialQueryset = testimonialModel.objects.all().select_related('createdBy', 'updatedBy')
+    model = CenterImageHCModel
+    queryset = model.objects.all().select_related('createdBy', 'updatedBy')
     pagination_class = None
     filter_backends = (SearchFilter, OrderingFilter, DjangoFilterBackend,)
-    filterset_fields = sliderModel.MetaDb.fields
+    filterset_fields = (field for field in model.MetaDb.fields if field != "centerImage")
     ordering_fields = filterset_fields # - for highest
     USER_ID = 0
 
@@ -52,7 +33,7 @@ class BundledHCViewSet(DatatableMixin, ModelViewSet):
 
     def get_serializer_class(self):
         if self.action in ('list', 'retrieve'):
-            return BundledHCSerializer
+            return CenterImageHCSerializer
 
 
     def retrieve(self, request: Request, pk=None):
@@ -68,20 +49,39 @@ class BundledHCViewSet(DatatableMixin, ModelViewSet):
         ), status=RES.status_code)
 
     def list(self, request: Request):
+        requestQueryParams = request.query_params
         self.filter_unique_to_user(request)
-        queryset = BundledSerializerDataclass(
-            about=self.aboutQueryset.all(), slider=self.sliderQueryset.all(),
-            gallery=self.galleryQueryset.all(), services=self.serviceQueryset.all(),
-            contactInfo=self.contactInfoQueryset.all(), testimonials=self.testimonialQueryset.all(),
-            banner=self.bannerQueryset.all(), logo=self.logoQueryset.all(),
-            centerImage=self.centerImageQueryset.all()
-        )
-        serializer = self.get_serializer(queryset, many=False)
-        DATA = serializer.data
 
-        return Response(success_response(
-            message="", data=DATA
-        ), status=status.HTTP_200_OK)
+        if ('datatable_plugin' in requestQueryParams.keys()):
+            defaultParams = list('userId')
+            self.setDefaultParams(defaultParams)
+
+            orderingColumn: dict[str, str] = dict(
+                (str(index), newitem) for index, newitem in enumerate(self.model.MetaDb.fields)
+            )
+            # print({"orderingColumn": orderingColumn})
+            self.setOrderingColumns(orderingColumn)
+
+            self.dataTable(self.model, self.get_queryset(), request)
+            self.getFilteredQuerysetStartEnd()
+
+            return Response(self.getDatatableResponse())
+        else:
+            queryset = self.filter_queryset(self.get_queryset())
+
+            page = self.paginate_queryset(queryset)
+            if page is not None:
+                serializer = self.get_serializer(page, many=True)
+                DATA = serializer.data
+
+                return self.get_paginated_response(data=DATA)
+
+            serializer = self.get_serializer(queryset, many=True)
+            DATA = serializer.data
+
+            return Response(success_response(
+                message="", data=DATA
+            ), status=status.HTTP_200_OK)
 
     def update(self, request, *args, **kwargs):
         self.filter_unique_to_user(request)

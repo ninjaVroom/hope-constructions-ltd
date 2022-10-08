@@ -6,7 +6,7 @@ from hope_construction.models.testimonials.main import TestimonialHCModel
 class TestimonialHCAdmin(admin.ModelAdmin):
     list_display = TestimonialHCModel.MetaDb.fields
     list_display_links = list_display
-    list_filter = list_display
+    list_filter = ("creationDate", "updateDate")
     search_fields = ("quoteAuthorName", "quoteAuthorTitle", "quoteText")
     # readonly_fields = ('date',)
     list_per_page = 25

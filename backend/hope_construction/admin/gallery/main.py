@@ -5,8 +5,8 @@ from hope_construction.models.gallery.main import GalleryHCModel
 @admin.register(GalleryHCModel)
 class GalleryHCAdmin(admin.ModelAdmin):
     list_display = GalleryHCModel.MetaDb.fields
+    list_filter = ("creationDate", "updateDate")
     list_display_links = list_display
-    list_filter = list_display
     # readonly_fields = ('date',)
     list_per_page = 25
 

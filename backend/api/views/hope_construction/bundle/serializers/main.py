@@ -9,6 +9,7 @@ from api.views.hope_construction.gallery.serializers.main import GalleryHCModel,
 from api.views.hope_construction.services.serializers.main import ServiceHCModel, ServiceHCSerializer
 from api.views.hope_construction.contact_info.serializers.main import ContactInfoHCModel, ContactInfoHCSerializer
 from api.views.hope_construction.testimonials.serializers.main import TestimonialHCModel, TestimonialHCSerializer
+from api.views.hope_construction.center_image.serializers.main import CenterImageHCModel, CenterImageHCSerializer
 
 
 @dataclass
@@ -19,6 +20,7 @@ class BundledSerializerDataclass():
     slider: QuerySet[SliderHCModel]
     gallery: QuerySet[GalleryHCModel]
     services: QuerySet[ServiceHCModel]
+    centerImage: QuerySet[CenterImageHCModel]
     contactInfo: QuerySet[ContactInfoHCModel]
     testimonials: QuerySet[TestimonialHCModel]
 
@@ -33,6 +35,7 @@ class BundledHCSerializer(serializers.Serializer):
         slider = instance.slider
         gallery = instance.gallery
         services = instance.services
+        centerImage = instance.centerImage
         contactInfo = instance.contactInfo
         testimonials = instance.testimonials
 
@@ -45,6 +48,7 @@ class BundledHCSerializer(serializers.Serializer):
         instance['slider'] = SliderHCSerializer(instance=slider, many=True).data
         instance['gallery'] = GalleryHCSerializer(instance=gallery, many=True).data
         instance['services'] = ServiceHCSerializer(instance=services, many=True).data
+        instance['centerImage'] = CenterImageHCSerializer(instance=centerImage, many=True).data
         instance['contactInfo'] = ContactInfoHCSerializer(instance=contactInfo, many=True).data
         instance['testimonials'] = TestimonialHCSerializer(instance=testimonials, many=True).data
         return instance

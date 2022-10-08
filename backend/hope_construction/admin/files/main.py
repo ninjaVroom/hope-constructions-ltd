@@ -6,7 +6,7 @@ from hope_construction.models.files.main import FilesHCModel
 class FilesHCAdmin(admin.ModelAdmin):
     list_display = FilesHCModel.MetaDb.fields
     list_display_links = list_display
-    list_filter = list_display
+    list_filter = ("creationDate", "updateDate", 'fileType',)
     search_fields = ("filename",)
     # readonly_fields = ('date',)
     list_per_page = 25

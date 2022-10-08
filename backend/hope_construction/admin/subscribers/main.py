@@ -6,7 +6,7 @@ from hope_construction.models.subscribers.main import SubscriberHCModel
 class SubscriberHCAdmin(admin.ModelAdmin):
     list_display = SubscriberHCModel.MetaDb.fields
     list_display_links = list_display
-    list_filter = list_display
+    list_filter = ("creationDate", "updateDate")
     search_fields = ("email",)
     # readonly_fields = ('date',)
     list_per_page = 25

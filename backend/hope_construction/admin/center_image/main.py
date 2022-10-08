@@ -1,13 +1,12 @@
 from django.contrib import admin
-from hope_construction.models.services.main import ServiceHCModel
+from hope_construction.models.center_image.main import CenterImageHCModel
 
 
-@admin.register(ServiceHCModel)
-class ServiceHCAdmin(admin.ModelAdmin):
-    list_display = ServiceHCModel.MetaDb.fields
+@admin.register(CenterImageHCModel)
+class CenterImageHCAdmin(admin.ModelAdmin):
+    list_display = CenterImageHCModel.MetaDb.fields
     list_display_links = list_display
     list_filter = ("creationDate", "updateDate")
-    search_fields = ("title", "text")
     # readonly_fields = ('date',)
     list_per_page = 25
 

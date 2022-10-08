@@ -1,3 +1,4 @@
+from hope_construction.models.center_image.main import CenterImageHCModel
 from hope_construction.models.banner.main import BannerHCModel
 from hope_construction.models.logo.main import LogoHCModel
 from hope_construction.models.about.main import AboutHCModel
@@ -13,5 +14,5 @@ from hope_construction.models.testimonials.main import TestimonialHCModel
 __all__ = [
     "AboutHCModel", "ContactInfoHCModel", "FilesHCModel", "GalleryHCModel",
     "MessageHCModel", "ServiceHCModel", "SliderHCModel", "SubscriberHCModel",
-    "TestimonialHCModel", "BannerHCModel", "LogoHCModel",
+    "TestimonialHCModel", "BannerHCModel", "LogoHCModel", "CenterImageHCModel",
 ]

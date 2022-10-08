@@ -17,7 +17,7 @@ class ContactInfoHCForm(forms.ModelForm):
 class ContactInfoHCAdmin(admin.ModelAdmin):
     list_display = ContactInfoHCModel.MetaDb.fields
     list_display_links = list_display
-    list_filter = list_display
+    list_filter = ("creationDate", "updateDate")
     search_fields = (
         "location", "email", "phone", "whatsapp", "facebook", "twitter", 
         "instagram", "mondayToFriday", "saturday", "sundayAndHolidays",

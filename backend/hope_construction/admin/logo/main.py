@@ -6,7 +6,7 @@ from hope_construction.models.logo.main import LogoHCModel
 class LogoHCAdmin(admin.ModelAdmin):
     list_display = LogoHCModel.MetaDb.fields
     list_display_links = list_display
-    list_filter = list_display
+    list_filter = ("creationDate", "updateDate")
     # readonly_fields = ('date',)
     list_per_page = 25
 

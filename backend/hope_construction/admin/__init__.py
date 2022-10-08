@@ -1,3 +1,4 @@
+from hope_construction.admin.center_image.main import CenterImageHCAdmin
 from hope_construction.admin.logo.main import LogoHCAdmin
 from hope_construction.admin.banner.main import BannerHCAdmin
 from hope_construction.admin.contact_info.main import ContactInfoHCAdmin
@@ -14,5 +15,5 @@ from hope_construction.admin.about.main import AboutHCAdmin
 __all__ = [
     "AboutHCAdmin", "ContactInfoHCAdmin", "FilesHCAdmin", "GalleryHCAdmin", 
     "TestimonialHCAdmin", "SubscriberHCAdmin", "SliderHCAdmin", "ServiceHCAdmin",
-    "MessageHCAdmin", "BannerHCAdmin", "LogoHCAdmin",
+    "MessageHCAdmin", "BannerHCAdmin", "LogoHCAdmin", "CenterImageHCAdmin",
 ]
